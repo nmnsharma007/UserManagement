@@ -4,7 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 
 # Create your forms here
 
-class NewUserForm(UserCreationForm):# form for authen
+class NewUserForm(UserCreationForm):# form for authentication
     first_name = forms.CharField()
     last_name = forms.CharField()
     email = forms.EmailField()

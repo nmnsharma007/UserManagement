@@ -1,0 +1,13 @@
+# Python
+*.pyc
+*~
+__pycache__
+secret.py
+# Env
+venv
+# Database
+db.sqlite3
+# Visual studio
+.vscode/
+.history/
+*.code-workspace
