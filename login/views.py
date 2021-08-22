@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import NewUserForm
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm # import a form for logging a user in
 # Create your views here.
+
+def home_page(request):
+    return render(request,'login/home.html')
 
 def registration_view(request):
     # if this is a POST request we need to process the form data
@@ -16,7 +19,7 @@ def registration_view(request):
             user = form.save() # save the user and return the instance
             login(request,user)
             messages.info(request,f"You are now logged in as {username}")
-            # add a redirection to home page here
+            return redirect('home_page')
     else:
         form = NewUserForm()
     return render(request,'login/registration.html',{'form' : form})
@@ -31,16 +34,16 @@ def login_view(request):
             if user is not None:
                 login(request,user)
                 messages.info(request,f"You are now logged in as {username}")   
-                # add a redirection to home page here
+                return redirect('home_page')
     else:
         form = AuthenticationForm()
     return render(request,'login/login.html',context={'form' : form})
 
 def logout_view(request):
-    pass
+    logout(request)
+    messages.info(request,'You have successfully logged out.')
+    return redirect('home_page')
 
-def password_reset(request):
-    pass
 
 
 
